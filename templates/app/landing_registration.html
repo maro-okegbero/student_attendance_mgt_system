@@ -1,0 +1,32 @@
+{% extends "app/_base.html" %}
+{% load static %}
+{% block content %}
+<div class="main">
+     <ul class="cards">
+    <li class="cards_item">
+      <div class="cardy">
+        <div class="card_content">
+          <h1 class="card_title">LECTURER</h1>
+            <br>
+
+          <p class="card_text">Register with this link if you're a lecturer</p>
+            <a href={% url 'register_staff' %} > <button class="btn card_btn">Register</button></a>
+        </div>
+      </div>
+    </li>
+    <li class="cards_item">
+      <div class="cardy">
+        <div class="card_content">
+          <h1 class="card_title">STUDENT</h1>
+            <br>
+          <p class="card_text">Register with this link if you're a student</p>
+            <a href={% url 'register_student' %} > <button class="btn card_btn" >Register</button></a>
+        </div>
+      </div>
+    </li>
+
+  </ul>
+
+
+</div>
+{% endblock content %}

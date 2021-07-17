@@ -1,0 +1,22 @@
+{% extends "app/_base.html" %}
+{% load static %}
+{% block content %}
+    <div id="log-in">
+  <form class="login-form" action="#" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+    <h1 class="login-heading">Login</h1>
+    <p class="login-copy">The world's most efficient attendance system</p>
+      <span style="display: inline-block; color: red;">{{ form.errors }}</span>
+    <div class="field-container -username">
+      <label for="demo">Username</label>{{ form.username }}
+    </div>
+    <div class="field-container -password">
+      <label for="demo">Password</label>
+     {{ form.password }}
+    </div>
+    <button class="log-in-button" type="submit">Login</button>
+    <a class="create-account-link" href={% url 'register' %} >Don't have an account? Sign up</a>
+  </form>
+</div>
+
+{% endblock %}

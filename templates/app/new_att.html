@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sign Attendance</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href={%static  "images_asgard/icons/favicon.ico"%}/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={%static "vendor_asgard/bootstrap/css/bootstrap.min.css"%}>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={%static  "fonts_asgard/font-awesome-4.7.0/css/font-awesome.min.css"%}>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={%static "vendor_asgard/animate/animate.css"%}>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={%static "vendor_asgard/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static "vendor_asgard/select2/select2.min.css"%}>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static "css_asgard/util.css" %}>
+	<link rel="stylesheet" type="text/css" href={% static "css_asgard/main.css" %}>
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="bg-contact2" style="background-image: url({% static 'images_asgard/bg-01.jpg'%});">
+		<div class="container-contact2">
+			<div class="wrap-contact2">
+				<form  method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+					<span class="contact2-form-title">
+						Take a picture of your face with your phone's Camera
+					</span>
+                        <div class="text-center">
+                         <img style="display: none" id="blah" src="#" alt="your image" class="rounded img-thumbnail" />
+                            </div>
+						<input style="display:none; " capture="camera" type="file" name="ul[0][camera]" id="imgInp">
+						<label for="imgInp" style="border: 1px solid black; alignment: center;">
+              <i class="mdi mdi-camera"></i>
+              <span >Take new photo</span>
+            </label>
+
+
+					<div class="container-contact2-form-btn">
+						<div class="wrap-contact2-form-btn">
+							<div class="contact2-form-bgbtn"></div>
+							<button class="contact2-form-btn" value="submit" type="submit">
+								Submit
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<!--===============================================================================================-->
+	<script src={% static "vendor_asgard/jquery/jquery-3.2.1.min.js"%}></script>
+<!--===============================================================================================-->
+	<script src={% static "vendor_asgard/bootstrap/js/popper.js"%}></script>
+	<script src={% static "vendor_asgard/bootstrap/js/bootstrap.min.js"%}></script>
+<!--===============================================================================================-->
+	<script src={% static "vendor_asgard/select2/select2.min.js"%}></script>
+<!--===============================================================================================-->
+	<script src={% static "js_asgard/main.js" %}></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-23581568-13');
+
+	  imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  if (file) {
+    blah.src = URL.createObjectURL(file);
+    blah.style.display = "inline-block";
+  }
+}
+	</script>
+
+</body>
+</html>
+
+
+

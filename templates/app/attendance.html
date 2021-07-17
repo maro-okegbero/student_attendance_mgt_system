@@ -1,0 +1,213 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Camera Capture</title>
+    <style>
+        .m-upload {
+  float: left;
+  border: 1px solid #90A4AE;
+  text-align: center;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 16px 16px 0;
+}
+.m-upload__preview {
+  position: relative;
+  padding-top: 56.25%;
+  background-color: #B0BEC5;
+  background-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+.m-upload__preview > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.3;
+}
+.m-upload__preview i {
+  font-size: 60px;
+  color: #fff;
+}
+.m-upload__inputs {
+  display: flex;
+  justify-content: space-around;
+}
+.m-upload__file {
+  position: relative;
+  width: 50%;
+}
+.m-upload__file label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  padding: 16px;
+  cursor: pointer;
+}
+.m-upload__file [type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  outline: none;
+  overflow: hidden;
+}
+.m-upload__file i {
+  font-size: 30px;
+  color: #455A64;
+  line-height: 1;
+}
+.m-upload__file:focus i, .m-upload__file:hover i {
+  color: #1B5E20;
+}
+form:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+body {
+  background: #37474f;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.l-constrained {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+h1, h2, h3 {
+  font-family: 'Roboto Slab', sans-serif;
+  font-weight: 400;
+  margin: 0 0 24px;
+}
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 30px;
+}
+p {
+  margin: 0 0 1em;
+}
+.typo-large {
+  font-size: 24px;
+  line-height: 1.5;
+}
+header {
+  background: #263238;
+  padding: 24px 0;
+  margin: 0 0 48px;
+}
+header h1 {
+  margin: 0 0 6px;
+}
+.m-box {
+  position: relative;
+  background: #fff;
+  color: #263238;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin: 0 0 48px;
+  padding: 24px;
+  overflow: hidden;
+}
+
+    </style>
+</head>
+<body>
+
+<header>
+  <div class="l-constrained">
+    <h1>Face Attendance</h1>
+
+      USE YOUR PHONE'S CAMERA
+  </div>
+</header>
+
+<div class="l-constrained">
+  <div id="form" class="m-box">
+    <form  method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="m-upload js-fileupload">
+        <div class="m-upload__preview jst-preview">
+          <div>
+            <i class="mdi mdi-cloud-upload"></i>
+          </div>
+        </div>
+
+        <div class="m-upload__inputs">
+
+          <div class="m-upload__file">
+            <input type="file" accept="image/*"  name="ul[0][camera]" id="ul-button-2">
+
+            <label for="ul-button-2">
+              <i class="mdi mdi-camera"></i>
+              <span>Take new photo</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+
+
+</div>
+
+</body>
+
+<script>
+    (function(){
+  'use strict';
+
+  var setEventListeners = function(uploadBox) {
+    var previewContainer = uploadBox.querySelectorAll('.jst-preview')[0];
+    var fileInputs = uploadBox.querySelectorAll('[type="file"]');
+
+    var previewImage = function (event) {
+      var file = event.target.files[0];
+      var imageType = /image.*/;
+
+      if(typeof FileReader !== 'undefined' && file.type.match(imageType)) {
+        var reader = new FileReader();
+
+        reader.onload = function() {
+          previewContainer.style.backgroundImage = 'url(' + reader.result + ')';
+        };
+
+        reader.readAsDataURL(file);
+      }
+    };
+
+    for(var k = 0; k < fileInputs.length; k++) {
+      fileInputs[k].addEventListener('change', previewImage);
+    }
+  };
+
+  var uploadBoxes = document.querySelectorAll('.js-fileupload');
+
+  for(var j = 0; j < uploadBoxes.length; j++) {
+    var uploadBox = uploadBoxes[j];
+
+    setEventListeners(uploadBox);
+  }
+}());
+</script>
+</html>
