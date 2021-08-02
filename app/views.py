@@ -207,6 +207,11 @@ def sign_attendance(request, course_code, hassh):
     url = BASE_URL + request.path
     print(url)
     attendance_link = TempLink.objects.get(url=url)
+    tm = datetime.now()
+    now = tm.replace(hour=tm.hour + 1)
+    if not attendance_link.end_time > now:
+        return render(request, "app/error_page.html")
+
 
     # check if the user has registered the attendance already
     try:
@@ -308,7 +313,6 @@ def course_info(request, course_code):
                 temp_model.url = url
                 temp_model.save()
 
-
             else:
                 print(form.errors, "FORM ERROR==================================")
         attedance_link = TempLink.objects.last().url
@@ -380,7 +384,7 @@ def single_attendance_record(request, course_code, pk, ):
         attendance_record_count = AttendanceRecord.objects.filter(course__course_code=course_code, user=user).count()
         course = Course.objects.get(course_code=course_code)
         all_attendance = TempLink.objects.filter(course=course).count()
-        general_attendance_percentage = round((attendance_record_count/all_attendance)*100, 2)
+        general_attendance_percentage = round((attendance_record_count/all_attendance)*100, 2) if attendance_record_count > 0 and all_attendance > 0 else 100
 
     except Exception as e:
         raise e
