@@ -21,51 +21,38 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href={% url 'dashboard' %} class="h1"><b>A</b>TTENDANCE MGT SYSTEM</a>
+     <h2>Sign Attendance for {{ course_code|upper }}</h2>
     </div>
     <div class="card-body">
-      <p style="color: red;" class="login-box-msg"><b>LOGIN</b></p>
+      <p style="color: red;" class="login-box-msg"><b>Use your phone's Camera to Capture your Face</b></p>
+      <p style="color: red;" class="login-box-msg"><b>Make sure the Picture is bright!</b></p>
 
-      <form action="#" method="POST">
+      <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           <span  style="color: red"><small>{{ error }}</small></span>
           <br>
           <br>
 
-          {% if request.GET.next %}
-            <input type="hidden" name="next" value="{{ request.GET.next }}">
-          {% endif %}
 
-        <div class="input-group mb-3">
-          {{form.username }}
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
+        <div class="text-center">
+            <img style="display: none; background-color: #d21818;" id="blah" src="#" alt="your image" class="rounded img-thumbnail" />
+          <input style="display:none; " capture="camera"  type="file" name="ul[0][camera]" id="imgInp">
+
+            <label for="imgInp" >
+                <span class="btn btn-success col fileinput-button dz-clickable">
+                            <i class="fas fa-camera"></i>
+                            <span>Take A Photo</span>
+                </span>
+            </label>
+
         </div>
-        <div class="input-group mb-3">
-         {{form.password }}
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-           <br>
-           <br>
+        <br>
+          <br>
         <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div>
+
           <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">Verify</button>
           </div>
           <!-- /.col -->
         </div>
@@ -88,5 +75,22 @@
 <script src= {%static "plugins/bootstrap/js/bootstrap.bundle.min.js"%}></script>
 <!-- AdminLTE App -->
 <script src={%static "dist/js/adminlte.min.js"%}></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-23581568-13');
+
+	  imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  if (file) {
+    blah.src = URL.createObjectURL(file);
+    blah.style.display = "inline-block";
+    blah.style.height = "50%";
+    blah.style.width = "50%";
+  }
+}
+	</script>
 </body>
 </html>

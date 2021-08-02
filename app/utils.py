@@ -19,7 +19,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 
 
-
 def token_generator(size=5, chars=string.digits):
     """
     utility function to generate random identification numbers
@@ -78,7 +77,3 @@ def send_email_verification_pin(**data):
         except Exception as e:
             print(e, "Email Error..................................................")
             pass
-
-
-
-

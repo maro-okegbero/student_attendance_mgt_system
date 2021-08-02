@@ -60,13 +60,38 @@ class Course(models.Model):
         return self.title
 
 
+class TempLink(models.Model):
+    """
+    Temporary attendance link model
+    """
+    start_time = models.DateTimeField(default=timezone.now)
+    end_time = models.DateTimeField(default=timezone.now)
+    url = models.URLField(null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False)
+    active = models.BooleanField(default=False)
+
+
 class AttendanceRecord(models.Model):
     """
     Attendance model
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False)
-    login = models.DateTimeField(null=False, blank=True)
-    logout = models.DateTimeField(null=False, blank=True)
+    login = models.DateTimeField(null=True, blank=True)
+    logout = models.DateTimeField(null=True, blank=True)
+    attendance_link = models.ForeignKey(TempLink, on_delete=models.CASCADE, null=True)
+    date_created = models.DateTimeField(default=timezone.now())
+    last_updated = models.DateTimeField(default=timezone.now())
+
+
+class OTP(models.Model):
+    """
+
+    """
+    password = models.CharField(blank=True, null=True, max_length=300)
+    active = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     date_created = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(default=timezone.now)
+

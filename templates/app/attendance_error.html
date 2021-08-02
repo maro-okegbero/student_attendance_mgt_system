@@ -1,4 +1,4 @@
-{% load static %}
+ {% load static %}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -254,169 +254,59 @@
   </aside>
 
 
+
+
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-     <div class="content-header">
+    <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Welcome, <b>{{ user.title }} {{user.first_name}}</b></h1>
-          </div><!-- /.col -->
-
-        </div><!-- /.row -->
+            <h1>Face Verification Failed</h1>
+          </div>
+        </div>
       </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-
-    <section class="content">
-      <div class="container-fluid">
-          <h2 style="color: #0c84ff">{{ course.course_code|upper }} <small>[{{ course.title|upper }}]</small></h2>
-      </div>
-       </section>
-  <br>
-
-       <section class="content">
-      <div class="container-fluid">
-          <p><b>Class Registration Link</b></p>
-          <div class="input-group mb-3">
-                  <input type="text" class="form-control rounded-0" value={{ base_ulr }}{% url 'course_info_reg' course.course_code %} id="input">
-                  <span class="input-group-append">
-                    <button type="button" class="btn btn-danger btn-flat"  id="execCopy">Copy Registration link</button>
-                  </span>
-                </div>
-      </div>
-       </section>
-
-
-
-
-
-
-
-  <section class="content">
-      <div class="container-fluid">
-          <p><b>Class Attendance Link</b></p>
-            <div class="input-group mb-3">
-                  <input type="text" class="form-control rounded-0" value={{ attendance_link}} id="myinput">
-                  <span class="input-group-append">
-                    <button type="button" class="btn btn-primary btn-flat"  id="execCopy2">Copy Attendance link</button>
-                  </span>
-                </div>
-      </div>
-    <div class="col-sm-6">
-        <button style="width: 50%;" type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modal-primary" >Generate New Attendance Link</button>
-    </div>
-
-        <!--Modal -->
-   <div class="modal fade" id="modal-primary">
-        <div class="modal-dialog">
-          <div style="background-color: #28a745; color: white; " class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Generate an attendance link for the class</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-               <form class="login-form" enctype="multipart/form-data" method="POST" action="#" id="link-form">
-                  {% csrf_token %}
-                <p class="login-copy">This is temporary link that will last for the duration  which you will set </p>
-                <div class="field-container -username">
-                    <span style="color: black;">{{ form.start_time.errors }}</span>
-                  <label for="demo">Start Time</label>{{ form.start_time}}
-                </div>
-                    <div class="field-container -username">
-                    <span style="color: black;">{{ form.end_time.errors }}</span>
-                  <label for="demo">End Time</label>{{ form.end_time}}
-                </div>
-
-
-
-                <button class="log-in-button" type="submit" on>Generate Link</button>
-               </form>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-    <!-- Main content -->
-
-  </section>
-
-
-
-
-<br>
-
-
-
-
-
-
-
-  <section class="content">
-      <div class="container-fluid">
-          <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                  <h3 class="card-title"><b>Registered Students for {{ course.course_code|capfirst }}</b></h3>
-
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 300px;">
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-
-                      <th>Fullname</th>
-                        <th>Mat Number</th>
-                      <th>Date Joined</th>
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% for x in students %}
-                    <tr>
-
-                        <td><a style="color: #346ca9" href={% url 'single'  course.course_code x.pk %}> {{ x.first_name }} {{ x.last_name }}</a></td>
-
-                      <td>{{ x.mat_number }}</td>
-
-                      <td>{{ x.date_created|date:"SHORT_DATE_FORMAT" }}</td>
-                    </tr>
-                  {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-        </div>
-      </div>
     </section>
 
+    <!-- Main content -->
+   <section class="content">
+      <div class="error-page">
+        <h4 class="headline text-danger">ERROR</h4>
+
+        <div class="error-content">
+          <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h3>
+
+          <p>
+            Your Face didn't match.
+            Meanwhile, if you're sure you're the one you can ask the lecturer to give you an OTP to successfully sign the attendance
+          </p>
+
+            <br>
+            <br>
+            <p style="color: red"><small>{{ error }}</small></p>
+          <form class="search-form" method="POST" action="#">
+              {% csrf_token %}
+            <div class="input-group">
+              {{ form.password }}
+
+              <div class="input-group-append">
+                <button type="submit" name="submit" class="btn btn-danger"><i class="fas fa-retweet"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.input-group -->
+          </form>
+        </div>
+      </div>
+      <!-- /.error-page -->
+
+    </section>
+    <!-- /.content -->
   </div>
 
-<footer class="main-footer">
+    <footer class="main-footer">
     <strong>Copyright &copy; 2021 <a href="https://adminlte.io">Attendance Mgt system</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">

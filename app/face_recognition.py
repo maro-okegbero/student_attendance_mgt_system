@@ -1,3 +1,5 @@
+import string
+import random
 import cv2
 import numpy as np
 import face_recognition
@@ -31,7 +33,7 @@ def compare(pic_first, pic_second):
     cv2.rectangle(imgTest, (faceLoc[3], faceLoc[0]), (faceLoc[1], faceLoc[2]), (255, 2, 252), 2)
 
     # third step: compare the faces in the
-    results = face_recognition.compare_faces([encodeMaro], encodeTest)
+    results = face_recognition.compare_faces([encodeMaro], encodeTest, tolerance=0.4)
     distance = face_recognition.face_distance([encodeMaro], encodeTest)
 
     print(results, distance)
@@ -41,3 +43,35 @@ def compare(pic_first, pic_second):
     # cv2.waitKey(0)
     return results[0]
 
+
+def encode_str(chatcter):
+    """
+
+    :param chatcter:
+    :return:
+    """
+    import base64
+
+    letters = string.ascii_lowercase
+    random_str = ''.join(
+        random.choice(letters) for i in range(4))  # adding this random string to make the encoded value more dynamic
+    message = chatcter + random_str
+    base64_message = base64.b64encode(message.encode("utf-8"))
+    return base64_message
+
+
+def decode_str(chatcter):
+    """
+
+
+    :param chatcter:
+    :return:
+    """
+
+    import base64
+    print(chatcter, "THe character===============================")
+    message = str(chatcter) + "=="
+    message = base64.b64decode(message).decode("UTF-8", 'ignore')
+    print(message[:-4], "the message========================")
+    print(type(message), "the message type========================")
+    return message[:-4]

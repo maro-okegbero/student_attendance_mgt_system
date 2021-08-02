@@ -65,42 +65,44 @@ class StaffUserForm(UserCreationForm):
         ('Prof', 'prof'),)
 
     first_name = forms.CharField(
-        widget=forms.TextInput(attrs={"placeholder": "Type your first name", "class": "first p"}), max_length=300,
+        widget=forms.TextInput(attrs={"placeholder": "First name", "class": "form-control"}), max_length=300,
         required=True,
         label="Firstname", )
 
     last_name = forms.CharField(
-        widget=forms.TextInput(attrs={"placeholder": "Type your last name", "class": "first p"}), max_length=300,
+        widget=forms.TextInput(attrs={"placeholder": "Last name", "class": "form-control"}), max_length=300,
         required=True,
         label="Lastname", )
 
     username = forms.CharField(
-        widget=forms.TextInput(attrs={"placeholder": "Type your preferred username", "class": "first p"}),
+        widget=forms.TextInput(attrs={"placeholder": "Username", "class": "form-control"}),
         max_length=300, required=True,
         label="Username", )
 
     title = forms.ChoiceField(choices=User.Title.choices)
-
     is_student = forms.BooleanField(
         widget=forms.HiddenInput(attrs={"placeholder": "Type your active phone number", "value": False}),
         required=False,
         label="Student", )
 
-    phone_number = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Type your active phone number"}),
-                                   max_length=300,
-                                   required=True,
-                                   label="PhoneNumber", )
+    phone_number = forms.CharField(
+        widget=forms.TextInput(attrs={"placeholder": "Phone number", "class": "form-control"}),
+        max_length=300,
+        required=True,
+        label="PhoneNumber", )
 
-    email = forms.CharField(widget=forms.EmailInput(attrs={"placeholder": "Type your email", "class": "first p"}),
+    email = forms.CharField(widget=forms.EmailInput(attrs={"placeholder": "Email", "class": "form-control"}),
                             max_length=300,
                             required=True,
                             label="Email", )
 
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Password"}), max_length=20,
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Password", "class": "form-control"}),
+                                max_length=20,
                                 label="Password1")
 
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Type Password again"}), max_length=20,
-                                label="Password2")
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password again", "class": "form-control"}), max_length=20,
+        label="Password2")
 
     class Meta:
         model = User
@@ -110,10 +112,11 @@ class StaffUserForm(UserCreationForm):
 
 class LoginUserForm(forms.Form):
     username = forms.CharField(max_length=30, required=True,
-                               widget=forms.TextInput(attrs={'name': "demo"}),
+                               widget=forms.TextInput(
+                                   attrs={'name': "demo", "class": "form-control", "placeholder": "Username"}),
                                label="Username")
     password = forms.CharField(max_length=30, required=True, widget=forms.PasswordInput(
-        attrs={'name': "demo"}), label="Password")
+        attrs={'name': "demo", "class": "form-control", "placeholder": "Password"}), label="Password")
 
 
 class AddCourseForm(forms.ModelForm):
@@ -134,6 +137,28 @@ class CourseRegForm(forms.Form):
 
     """
     mat_number = forms.CharField(max_length=30, required=True,
-                                 widget=forms.TextInput(attrs={'name': "mat_number", "class": "form-control"}),
+                                 widget=forms.TextInput(attrs={"placeholder": "MAT NUMBER", "class": "form-control"}),
                                  label="MAT NUMBER")
 
+
+class GenerateLinkForm(forms.Form):
+    """
+
+    """
+    start_time = forms.DateTimeField(required=True,
+                                     widget=forms.DateTimeInput(attrs={'name': "start_time", "class": "form-control",
+                                                                       'type': 'datetime-local'}),
+                                     label="START TIME")
+
+    end_time = forms.DateTimeField(required=True,
+                                   widget=forms.DateTimeInput(
+                                       attrs={'name': "end_time", "class": "form-control", 'type': 'datetime-local'}),
+                                   label="END TIME")
+
+
+class OTPForm(forms.Form):
+    """
+
+    """
+    password = forms.CharField(max_length=30, required=True, widget=forms.PasswordInput(
+        attrs={'name': "password", "class": "form-control", "placeholder": "OTP"}), label="Password")

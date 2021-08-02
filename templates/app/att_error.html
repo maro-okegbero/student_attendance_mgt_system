@@ -14,8 +14,8 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href={%static "vendor_asgard/animate/animate.css"%}>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href={%static "vendor_asgard/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={%static "vendor_asgard/css-hamburgers/hamburgers.min.css"%}>
+
 	<link rel="stylesheet" type="text/css" href={% static "vendor_asgard/select2/select2.min.css"%}>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href={% static "css_asgard/util.css" %}>
@@ -27,34 +27,8 @@
 	<div class="bg-contact2" style="background-image: url({% static 'images_asgard/bg-01.jpg'%});">
 		<div class="container-contact2">
 			<div class="wrap-contact2">
-                {% if error %}
-                <h1>{{ error }}</h1>
-                {% else %}
-				<form  method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-					<span class="contact2-form-title">
-						Take a picture of your face with your phone's Camera
-					</span>
-                        <div class="text-center">
-                         <img style="display: none" id="blah" src="#" alt="your image" class="rounded img-thumbnail" />
-                            </div>
-						<input style="display:none; " capture="camera" type="file" name="ul[0][camera]" id="imgInp">
-						<label for="imgInp" style="border: 1px solid black; alignment: center;">
-              <i class="mdi mdi-camera"></i>
-              <span >Take new photo</span>
-            </label>
-
-
-					<div class="container-contact2-form-btn">
-						<div class="wrap-contact2-form-btn">
-							<div class="contact2-form-bgbtn"></div>
-							<button class="contact2-form-btn" value="submit" type="submit">
-								Submit
-							</button>
-						</div>
-					</div>
-				</form>
-                {% endif %}
+				<h1>ERROR!</h1>
+                <h3>{{ error }}</h3>
 			</div>
 		</div>
 	</div>
@@ -74,21 +48,6 @@
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'UA-23581568-13');
-
-	  imgInp.onchange = evt => {
-  const [file] = imgInp.files
-  if (file) {
-    blah.src = URL.createObjectURL(file);
-    blah.style.display = "inline-block";
-  }
-}
-	</script>
 
 </body>
 </html>

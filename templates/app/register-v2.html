@@ -20,10 +20,10 @@
 <div class="register-box">
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href={% url 'dashboard' %} class="h1"><b>Attendance</b>MGT SYSTEM</a>
+      <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Register as a Lecturer</p>
+      <p class="login-box-msg">Register a new membership</p>
 
       <form action="#" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
@@ -53,15 +53,7 @@
           </div>
         </div>
 
-          <div class="input-group mb-3">
-          {{ form.username }}
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-          <div class="input-group mb-3">
+        <div class="input-group mb-3">
           {{ form.email }}
           <div class="input-group-append">
             <div class="input-group-text">
@@ -71,7 +63,7 @@
         </div>
 
 
-          <div class="input-group mb-3">
+        <div class="input-group mb-3">
           {{ form.phone_number }}
           <div class="input-group-append">
             <div class="input-group-text">
