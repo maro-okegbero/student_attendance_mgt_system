@@ -27,7 +27,7 @@
       <p style="color: red;" class="login-box-msg"><b>Use your phone's Camera to Capture your Face</b></p>
       <p style="color: red;" class="login-box-msg"><b>Make sure the Picture is bright!</b></p>
 
-      <form method="POST" enctype="multipart/form-data">
+      <form method="POST" enctype="multipart/form-data" id="link-form">
           {% csrf_token %}
           <span  style="color: red"><small>{{ error }}</small></span>
           <br>
@@ -44,6 +44,9 @@
                             <span>Take A Photo</span>
                 </span>
             </label>
+
+            <input type="hidden" name="latitude" id="lat">
+            <input type="hidden" name="longitude" id="lng">
 
         </div>
         <br>
@@ -91,6 +94,62 @@
     blah.style.width = "50%";
   }
 }
+
+var form = document.getElementById("link-form");
+
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    if (navigator.geolocation) {
+        console.log("I GOT THROUGH !!!")
+        console.log("I GOT THROUGH !!!")
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        console.log("HALLELUYA!!!")
+  } else {
+        console.log("I DID NOT GET THROUGH!!!")
+       alert("You Device Does Not GPS!")
+   event.preventDefault();
+  }
+
+});
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+    console.log("I GOT THROUGH TO THE FINAL PART !!!")
+    $("#lat").val(position.coords.latitude);
+    $("#lng").val(position.coords.longitude);
+    $("#link-form").off("submit");//need form submit event off.
+    form.submit();//submit form
+  {#x.innerHTML = "Latitude: " + position.coords.latitude +#}
+  {#"<br>Longitude: " + position.coords.longitude;#}
+}
+
+function showError(error){
+    switch (error.code){
+        case error.PERMISSION_DENIED:
+            alert("YOU MUST ALLOW YOUR LOCATION TO BE TAKEN");
+            break;
+        case error.POSITION_UNAVAILABLE:
+             alert("LOCATION INFORMATION UNAVAILABLE");
+            break;
+        case error.TIMEOUT:
+             alert("THE REQUEST TO GET USER LOCATION TIMED OUT");
+            break;
+        case error.UNKNOWN_ERROR:
+             alert("AN UNKNOWN ERROR OCCURED");
+            break;
+
+    }
+}
+
 	</script>
 </body>
 </html>

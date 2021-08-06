@@ -155,6 +155,16 @@ class GenerateLinkForm(forms.Form):
                                        attrs={'name': "end_time", "class": "form-control", 'type': 'datetime-local'}),
                                    label="END TIME")
 
+    lat = forms.CharField(required=False,
+                                   widget=forms.TextInput(
+                                       attrs={'name': "lat", "class": "form-control", 'type': 'hidden', "id": "lat"}),
+                                   label="LAT")
+
+    lng = forms.CharField(required=False,
+                          widget=forms.TextInput(
+                              attrs={'name': "lng", "class": "form-control", 'type': 'hidden', "id": "lng"}),
+                          label="LNG")
+
 
 class OTPForm(forms.Form):
     """

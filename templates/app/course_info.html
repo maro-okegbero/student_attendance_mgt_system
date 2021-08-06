@@ -299,7 +299,7 @@
       <div class="container-fluid">
           <p><b>Class Attendance Link</b></p>
             <div class="input-group mb-3">
-                  <input type="text" class="form-control rounded-0" value={{ attendance_link}} id="myinput">
+                  <input type="text" id="myinput" class="form-control rounded-0" value={{ attendance_link}} >
                   <span class="input-group-append">
                     <button type="button" class="btn btn-primary btn-flat"  id="execCopy2">Copy Attendance link</button>
                   </span>
@@ -323,14 +323,25 @@
                <form class="login-form" enctype="multipart/form-data" method="POST" action="#" id="link-form">
                   {% csrf_token %}
                 <p class="login-copy">This is temporary link that will last for the duration  which you will set </p>
-                <div class="field-container -username">
-                    <span style="color: black;">{{ form.start_time.errors }}</span>
-                  <label for="demo">Start Time</label>{{ form.start_time}}
-                </div>
                     <div class="field-container -username">
-                    <span style="color: black;">{{ form.end_time.errors }}</span>
-                  <label for="demo">End Time</label>{{ form.end_time}}
-                </div>
+                        <span style="color: black;">{{ form.start_time.errors }}</span>
+                      <label for="demo">Start Time</label>{{ form.start_time}}
+                    </div>
+
+                    <div class="field-container -username">
+                         <span style="color: black;">{{ form.end_time.errors }}</span>
+                     <label for="demo">End Time</label>{{ form.end_time}}
+                    </div>
+
+                    <div class="field-container -username">
+                         <span style="color: black;">{{ form.lat.errors }}</span>
+                     <label for="demo">{{ form.lat.label }}</label>{{ form.lat}}
+                    </div>
+
+                      <div class="field-container -username">
+                         <span style="color: black;">{{ form.lng.errors }}</span>
+                     <label for="demo">{{ form.lng.label }}</label>{{ form.lng}}
+                    </div>
 
 
 
@@ -453,6 +464,61 @@ function execCopy2() {
   alert("Copied Attendance Link");
 
 }
+var form = document.getElementById("link-form");
+
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    
+    if (navigator.geolocation) {
+        console.log("I GOT THROUGH !!!")
+        console.log("I GOT THROUGH !!!")
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        console.log("HALLELUYA!!!")
+  } else {
+        console.log("I DID NOT GET THROUGH!!!")
+       alert("You Device Does Not GPS!")
+   event.preventDefault();
+  }
+
+});
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+    console.log("I GOT THROUGH TO THE FINAL PART !!!")
+    $("#lat").val(position.coords.latitude);
+    $("#lng").val(position.coords.longitude);
+    $("#link-form").off("submit");//need form submit event off.
+    form.submit();//submit form
+  {#x.innerHTML = "Latitude: " + position.coords.latitude +#}
+  {#"<br>Longitude: " + position.coords.longitude;#}
+}
+
+function showError(error){
+    switch (error.code){
+        case error.PERMISSION_DENIED:
+            alert("YOU MUST ALLOW YOUR LOCATION TO BE TAKEN");
+            break;
+        case error.POSITION_UNAVAILABLE:
+             alert("LOCATION INFORMATION UNAVAILABLE");
+            break;
+        case error.TIMEOUT:
+             alert("THE REQUEST TO GET USER LOCATION TIMED OUT");
+            break;
+        case error.UNKNOWN_ERROR:
+             alert("AN UNKNOWN ERROR OCCURED");
+            break;
+
+    }
+}
+
       </script>
 
 <script src={% static "plugins/jquery/jquery.min.js" %}></script>

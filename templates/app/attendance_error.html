@@ -278,14 +278,11 @@
         <div class="error-content">
           <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h3>
 
-          <p>
-            Your Face didn't match.
-            Meanwhile, if you're sure you're the one you can ask the lecturer to give you an OTP to successfully sign the attendance
-          </p>
+          <p>{{ error }}</p>
 
             <br>
             <br>
-            <p style="color: red"><small>{{ error }}</small></p>
+            <p style="color: red"><small>{{ form_error }}</small></p>
           <form class="search-form" method="POST" action="#">
               {% csrf_token %}
             <div class="input-group">

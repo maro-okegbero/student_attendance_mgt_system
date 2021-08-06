@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'cloudinary',
     'app',
 
@@ -148,6 +149,7 @@ cloudinary.config(
 AUTH_USER_MODEL = 'app.User'
 
 BASE_URL = "http://127.0.0.1:8080"
+# BASE_URL = "https://f380d19d9f10.ngrok.io"
 
 LOGIN_REDIRECT_URL = "/success_page"
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True

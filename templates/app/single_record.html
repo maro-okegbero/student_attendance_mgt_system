@@ -189,10 +189,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src={% static "dist/img/avatar3.png"%} class="img-circle elevation-2" alt="User Image">
+          <img class="img-circle elevation-2" alt="User Image" src={% static "dist/img/avatar3.png"%}  >
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ user.first_name }} {{ user.last_name }}</a>
+          <a href="#" class="d-block">{{ admin.first_name }} {{ admin.last_name }}</a>
         </div>
       </div>
 
@@ -273,7 +273,9 @@
 
   <section class="content">
       <div class="container-fluid">
-          <h5 style="color: green">Average Attendance: {{ percentage }}% </h5>
+          <h4 style="color: red">Student NAME:    {{ user.first_name }} {{ user.last_name }} </h4>
+          <h4 style="color: red">Student MAT NO:    {{ user.mat_number}} </h4>
+          <h4 style="color: red">Average ATTENDANCE: {{ percentage }}% </h4>
       </div>
   </section>
 
@@ -286,7 +288,7 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                <h2 class="card-title">{{ user.first_name }}'s Attendance Record For <span style="color: red;" >{{ course.course_code|upper }} <small>[{{ course.title|upper }}]</small></span></h2>
+                <h2 class="card-title">{{ user.first_name }}'s Attendance Record For <span style="color: rgb(37,162,184);" >{{ course.course_code|upper }} <small>[{{ course.title|upper }}]</small></span></h2>
               </div>
               <!-- /.card-header -->
               <div class="card-body">

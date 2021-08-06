@@ -69,6 +69,8 @@ class TempLink(models.Model):
     url = models.URLField(null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=False)
     active = models.BooleanField(default=False)
+    latitude = models.CharField(max_length=100, null=True, blank=True)
+    longitude = models.CharField(max_length=100, null=True, blank=True)
 
 
 class AttendanceRecord(models.Model):
