@@ -10,6 +10,7 @@ from .face_recognition import compare, encode_str, decode_str
 from .forms import UserForm, StaffUserForm, LoginUserForm, AddCourseForm, CourseRegForm, GenerateLinkForm, OTPForm
 from .models import User, Course, TempLink, AttendanceRecord, OTP
 from .utils import token_generator
+import geopy.distance
 
 
 # Create your views here.
@@ -148,8 +149,6 @@ def sign_in(request):
                        'form': form, }
             return render(request, "app/login.html", context)
 
-
-
     context = {'error': "",
                'form': form, }
     return render(request, "app/login.html", context)
@@ -244,9 +243,12 @@ def sign_attendance(request, course_code, hassh):
                 lat = request.POST.get("latitude")
                 lng = request.POST.get("longitude")
                 print(f"this is the LAT {lat}==============, while this the LNG{lng}=====")
-                if not (attendance_link.latitude == lat and attendance_link.longitude == lng):
-                    return redirect(otp_verification, course=course, attendance_link=attendance_link.pk,
-                                    )
+                print(f"This is the attendance lat{attendance_link.latitude}, this is  the {attendance_link.longitude}======================")
+                coords_1 = (attendance_link.latitude, attendance_link.longitude)
+                coords_2 = (lat, lng)
+                distance = geopy.distance.geodesic(coords_1, coords_2)
+                if distance > 0.1:
+                    return redirect(otp_verification, course=course, attendance_link=attendance_link.pk)
                 try:
                     answer = compare(user_image, realtime)  # make the image comparisons
 
@@ -323,6 +325,8 @@ def course_info(request, course_code):
                 temp_model.course = course
                 temp_model.latitude = lat
                 temp_model.longitude = lng
+                print(f"This is the lat{lat}, this is  the {lng}======================")
+
                 str_encode = str(course_code) + str(end_time)
                 str_encode = encode_str(str_encode)
                 url = BASE_URL + "/" + str.lower(course_code) + "/" + str_encode.decode("utf-8")
@@ -499,7 +503,8 @@ def otp_verification(request, course, attendance_link, error=None):
             except Exception as e:
                 print(e, "LEVEL 3")
                 return render(request, 'app/attendance_error.html',
-                              context={"form_error": "Invalid or expired  OTP", "form": form, "error": "Your Face didn't match Meanwhile, if you're sure you're the one you can ask the lecturer to give you an OTP to successfully sign the attendance" if not error else error,})
+                              context={"form_error": "Invalid or expired  OTP", "form": form,
+                                       "error": "Your Face didn't match Meanwhile, if you're sure you're the one you can ask the lecturer to give you an OTP to successfully sign the attendance" if not error else error, })
         print("IT is NOt!!!!")
 
     return render(request, 'app/attendance_error.html', context={"form": form,

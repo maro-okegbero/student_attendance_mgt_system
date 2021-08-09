@@ -71,6 +71,8 @@ class TempLink(models.Model):
     active = models.BooleanField(default=False)
     latitude = models.CharField(max_length=100, null=True, blank=True)
     longitude = models.CharField(max_length=100, null=True, blank=True)
+    date_created = models.DateTimeField(default=timezone.now)
+    last_updated = models.DateTimeField(default=timezone.now)
 
 
 class AttendanceRecord(models.Model):
