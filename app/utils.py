@@ -1,11 +1,11 @@
 """
 utils.py
 
-@Author:    Nonso Kachikwu
+@Author:    Maro Okegbero
 @Date:      June 2, 2021
 @Time:      8:29 AM
 
-This module contains a number of utility functions useful throughout tpie!.
+This module contains a number of utility functions useful throughout the attendance mgt system app!.
 No references are made to specific models or views. As a result, they are useful with or
 without the application context.
 """
@@ -77,3 +77,36 @@ def send_email_verification_pin(**data):
         except Exception as e:
             print(e, "Email Error..................................................")
             pass
+
+
+def encode_str(chatcter):
+    """
+
+    :param chatcter:
+    :return:
+    """
+    import base64
+
+    letters = string.ascii_lowercase
+    random_str = ''.join(
+        random.choice(letters) for i in range(4))  # adding this random string to make the encoded value more dynamic
+    message = chatcter + random_str
+    base64_message = base64.b64encode(message.encode("utf-8"))
+    return base64_message
+
+
+def decode_str(chatcter):
+    """
+
+
+    :param chatcter:
+    :return:
+    """
+
+    import base64
+    print(chatcter, "THe character===============================")
+    message = str(chatcter) + "=="
+    message = base64.b64decode(message).decode("UTF-8", 'ignore')
+    print(message[:-4], "the message========================")
+    print(type(message), "the message type========================")
+    return message[:-4]

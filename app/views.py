@@ -3,13 +3,14 @@ from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.utils import timezone
 
-from attendance_management_system.settings import BASE_URL
-from .face_recognition import compare, encode_str, decode_str
+from .face_recognition import compare
+from .utils import encode_str, decode_str
 from .forms import UserForm, StaffUserForm, LoginUserForm, AddCourseForm, CourseRegForm, GenerateLinkForm, OTPForm
 from .models import User, Course, TempLink, AttendanceRecord, OTP
 from .utils import token_generator
+
+from attendance_management_system.settings import BASE_URL
 import geopy.distance
 
 
@@ -243,7 +244,8 @@ def sign_attendance(request, course_code, hassh):
                 lat = request.POST.get("latitude")
                 lng = request.POST.get("longitude")
                 print(f"this is the LAT {lat}==============, while this the LNG{lng}=====")
-                print(f"This is the attendance lat{attendance_link.latitude}, this is  the {attendance_link.longitude}======================")
+                print(
+                    f"This is the attendance lat{attendance_link.latitude}, this is  the {attendance_link.longitude}======================")
                 coords_1 = (attendance_link.latitude, attendance_link.longitude)
                 coords_2 = (lat, lng)
                 distance = geopy.distance.geodesic(coords_1, coords_2)
